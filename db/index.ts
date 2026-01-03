@@ -7,13 +7,7 @@ import * as schema from './schema'
 
 const isVercel = !!process.env.VERCEL
 
-export const db = isVercel
-  ? drizzleNeon({
-      client: neon(process.env.DATABASE_URL!),
-      schema,
-      casing: 'snake_case',
-    })
-  : drizzlePostgres(
+export const db = drizzlePostgres(
       new Pool({
         connectionString: process.env.DATABASE_URL,
         ssl: {
